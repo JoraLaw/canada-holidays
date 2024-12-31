@@ -96,6 +96,11 @@ const _getDate = (dateString, year) => {
     dateString = `The ${dateString}`
   }
 
+  // Regatta Day 2025 was moved to accommodate 2025 Canada Games
+  if (dateString === 'The First Wednesday in August 2025') {
+    dateString = 'July 30 2025'
+  }
+
   if (/before|after|near/i.test(dateString)) {
     date = _parseRelativeDates(dateString)
   } else {
@@ -107,8 +112,8 @@ const _getDate = (dateString, year) => {
     throw new Error(`Date string not parsable: ${dateString}`)
   }
 
-  //https://stackoverflow.com/a/52352512
-  date = new Date(date.valueOf() - date.getTimezoneOffset() * 60 * 1000)
+  // https://stackoverflow.com/a/52352512
+  // const date = new Date(date.valueOf() - date.getTimezoneOffset() * 60 * 1000)
 
   return date
 }

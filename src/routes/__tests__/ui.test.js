@@ -221,6 +221,26 @@ describe('Test ui responses', () => {
       })
     })
 
+    describe('Test /provinces/QB response', () => {
+      test('it should return 301', async () => {
+        const response = await request(app).get('/provinces/QB')
+        expect(response.statusCode).toBe(301)
+        expect(response.headers.location).toEqual('/provinces/QC')
+      })
+
+      test('it should return 301 for lowercased provinceId', async () => {
+        const response = await request(app).get('/provinces/qb')
+        expect(response.statusCode).toBe(301)
+        expect(response.headers.location).toEqual('/provinces/QC')
+      })
+
+      test('it should return 301 with the year included', async () => {
+        const response = await request(app).get('/provinces/QB/2022')
+        expect(response.statusCode).toBe(301)
+        expect(response.headers.location).toEqual('/provinces/QC/2022')
+      })
+    })
+
     describe('Test /provinces/:provinceId/:year responses', () => {
       const nextYearMB = getCurrentHolidayYear('MB') + 1
 
@@ -330,7 +350,7 @@ describe('Test ui responses', () => {
             })
           })
 
-          const BAD_YEARS = [2013, 2014, 2032, 2033]
+          const BAD_YEARS = [2012, 2013, 2034, 2035]
           BAD_YEARS.map((invalidYear) => {
             test(`it should return 400 for url: "${url}" and year: "${invalidYear}"`, async () => {
               const response = await request(app).get(`${url}/${invalidYear}`)
@@ -340,7 +360,7 @@ describe('Test ui responses', () => {
         })
 
         describe('with "year" query params', () => {
-          const INVALID_YEARS = [-1, 0, 1, 2014, 2032, 'pterodactyl']
+          const INVALID_YEARS = [-1, 0, 1, 2013, 2034, 'pterodactyl']
           INVALID_YEARS.map((invalidYear) => {
             test(`it should return 200 for url: "${url}" and a bad query param: "${invalidYear}"`, async () => {
               const response = await request(app).get(`${url}?year=${invalidYear}`)

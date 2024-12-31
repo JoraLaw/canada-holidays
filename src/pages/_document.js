@@ -1,5 +1,6 @@
 const { renderStylesToString } = require('@emotion/server')
 const render = require('preact-render-to-string')
+const { partytownSnippet } = require('@builder.io/partytown/integration')
 const { html, metaIfSHA, getOgImagePath, getCanonical } = require('../utils')
 const { breadcrumb, speakable } = require('../utils/richSnippets')
 const { theme, visuallyHidden } = require('../styles')
@@ -59,10 +60,29 @@ const document = ({
 
         <title>${title}</title>
 
+        <!-- preload fonts -->
+        <link rel="preload" href="/fonts/gothic-a1-v8-latin-300.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+        <link rel="preload" href="/fonts/gothic-a1-v8-latin-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+        <link rel="preload" href="/fonts/gothic-a1-v8-latin-500.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+        <link rel="preload" href="/fonts/gothic-a1-v8-latin-600.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+        <link rel="preload" href="/fonts/gothic-a1-v8-latin-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+        <script>
+          partytown = {
+            forward: ['dataLayer.push'],
+          };
+        </script>
+        <!-- partytown snippet -->
+        <script>
+        ${partytownSnippet()}
+        </script>
+
+        <link rel="preconnect" href="//googletagmanager.com" crossorigin>
+
         ${
           process.env.NODE_ENV === 'production'
-            ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${ga4Id}"></script>
-              <script>${ga4}</script>`
+            ? `<script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=${ga4Id}"></script>
+              <script type="text/partytown">${ga4}</script>`
             : ''
         }
 
@@ -158,14 +178,12 @@ const document = ({
             : ''
         }
 
-        <!-- https://developers.google.com/web/fundamentals/primers/service-workers/registration -->
-        <script>
-          if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-              navigator.serviceWorker.register('/sw.js');
-            });
-          }
-        </script>
+        <!-- google adsense -->
+        ${
+          process.env.NODE_ENV === 'production'
+            ? '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3638315231131289" crossorigin="anonymous"></script>'
+            : ''
+        }
       </head>
       <body id="body" class="no-js">
         <script>
@@ -173,13 +191,7 @@ const document = ({
           document.body.classList.add("js");
         </script>
         ${content}
-        <script src="/js/sweet-scroll.min.js?v=${process.env.npm_package_version}"></script>
-        <script src="/js/script.js?v=${process.env.npm_package_version}"></script>
-        ${
-          path === '/feedback'
-            ? `<script src="/js/email.js?v=${process.env.npm_package_version}"></script>`
-            : ''
-        }
+        <script src="/js/min/bundle.min.js?v=${process.env.npm_package_version}" defer></script>
       </body>
     </html>
   `

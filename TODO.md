@@ -4,9 +4,17 @@
 - add years to dates on years pages?
 - make API to return CSV format
   - page for CSV downloads
+- Update the github workflows for deploying to Cloud Run
 
 # DONE
 
+- Update sitemap
+- Add 2014, 2032, 2033
+- Redirect /QB to /QC
+- Move away from Cloud Repositories onto Artifacts
+- Build + minify js
+- partytown for GTM
+- Clean up API documentation
 - Optional holidays for NS
 - Orange Shirt Day for Manitoba
 - Add 2015, 2030, 2031

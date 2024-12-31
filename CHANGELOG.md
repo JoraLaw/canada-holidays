@@ -5,7 +5,102 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.23.0] - 2023-07-12
+## [3.26.0] - 2024-12-27
+
+### Added
+
+- Added new years
+  - 2014
+  - 2032
+  - 2033
+
+### Changed
+
+- API spec updated
+  - Default year is 2025
+  - New min/max years (2014/2033)
+- Updated sitemap with new year
+- ProvincePicker now shows 2 less dates
+- Redirect "provinces/QB" to "provinces/QC"
+
+### Fixed
+
+- Update tests that relied on year being 2024
+
+
+## [3.25.2] - 2024-12-20
+
+### Fixed
+
+- Fixed bug where my JS was breaking on pages without a region picker
+
+## [3.25.1] - 2024-12-10
+
+### Changed
+
+- Speed up + simplify font loading
+  - Don't use a version number for fonts (they _never_ get updated)
+  - Preload fonts
+  - Delete very old (outdated) font formats
+
+## [3.25.0] - 2024-12-10
+
+### Added
+
+- Add build step that concats and minifies JS files
+  - This is sad but it might make the site faster
+
+### Changed
+
+- Regatta Day is moved up a week because of the 2025 Canada Games! Go team!
+
+## [3.24.1] - 2024-10-25
+
+### Added
+
+- Add partytown to save some pageload time with GTM
+
+### Changed
+
+- Longer cache time for static files (1 year, up from 3 months)
+- Slightly more top padding so that the ads on mobile look better
+
+## [3.24.0] - 2024-10-25
+
+### Added
+
+- Added a banner to the site with Adsense
+  - Selling out? Yes.
+
+### Updated
+
+- Cache static files for longer (90 days, not 3 days)
+- Defer body scripts since they are blocking
+
+### Removed
+
+- Get rid of CSP because it doesn't work with Adsense
+- Get rid of workbox because it always causes weird console errors
+
+## [3.23.2] - 2024-08-14
+
+### Updated
+
+- Use more efficient compression library
+  - Also compress static files
+
+### Fixed
+
+- Add cloudflare to connectSrc to avoid csp error
+
+## [3.23.1] - 2024-08-14
+
+### Updated
+
+- Updated documentation for API query parameters
+  - Make it clear they accept one value at a time
+
+## [3.23.0] - 2024-07-12
 
 ### Added
 
@@ -19,7 +114,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Some relative date conversions were 1 day early, but that is fixed
-
 
 ## [3.22.0] - 2023-12-26
 

@@ -35,6 +35,7 @@ steps:
       - '--region'
       - '$_SVC_ZONE'
       - '--service-account=$_SVC_NAME@$_JORA_DEV_PROJECT_ID.iam.gserviceaccount.com'
+      
 images:
   - 'northamerica-northeast2-docker.pkg.dev/$_JORA_DEV_PROJECT_ID/jora-backend/$_SVC_NAME:latest'
   - 'northamerica-northeast2-docker.pkg.dev/$_JORA_DEV_PROJECT_ID/jora-backend/$_SVC_NAME:$SHORT_SHA'
